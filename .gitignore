@@ -1,0 +1,12 @@
+# Environment / secrets
+.env
+*.env
+
+# Virtual environment
+agent_env/
+venv/
+__pacache__/
+*.pyc
+
+# macOS
+.DS_Store
