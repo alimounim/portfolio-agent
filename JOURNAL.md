@@ -21,4 +21,11 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Noticed the agent stayed honest about not knowing things outside its system prompt (e.g. specific tools/languages) instead of making things up — good sign for reliability
 - Next: make the API key persist automatically instead of re-exporting every session (probably via `.env`)
 
+## [9/12/2026] — Persistent API key with .env
 
+- Installed `python-dotenv` inside the venv specifically (had it in anaconda base, but venv needed its own copy)
+- Created `.env` file with `ANTHROPIC_API_KEY=...`, confirmed `.gitignore` already excludes it from git
+- Added `load_dotenv()` to the top of the script — no more manually exporting the key every new terminal session
+- Verified it works in a completely fresh terminal with no manual export
+- Tested a couple more questions — noticed the agent consistently declines to guess at unstated facts (like years of experience) rather than making things up, which is exactly the behavior I want for a portfolio agent
+- Next: start thinking about turning this into an actual web app
