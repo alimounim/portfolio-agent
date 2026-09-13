@@ -29,3 +29,12 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Verified it works in a completely fresh terminal with no manual export
 - Tested a couple more questions — noticed the agent consistently declines to guess at unstated facts (like years of experience) rather than making things up, which is exactly the behavior I want for a portfolio agent
 - Next: start thinking about turning this into an actual web app
+
+## [9/13/2026] — First working web version (Flask)
+
+- Built a Flask backend (`app.py`) with two routes: `/` serves the chat page, `/chat` handles the actual API call to Claude
+- Created `templates/index.html` — plain HTML/JS chat interface, no styling yet
+- Learned Flask's template folder convention (`templates/`) and hit a `TemplateNotFound` error from skipping that step — good reminder to actually run every setup command, not just the ones that feel important
+- This version doesn't yet keep conversation history between messages (each request is independent) — that's next
+- Milestone: agent is now usable in an actual browser, not just the terminal
+- Next: bring back conversation memory in the web version, then start the visual design phase (playful character, Afghan/Dari-Farsi visual motifs)
