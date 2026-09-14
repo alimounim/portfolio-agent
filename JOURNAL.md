@@ -47,3 +47,11 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Known limitation to fix later: `conversation_history` is global, shared across all visitors, and resets on server restart. Fine for solo testing now, not fine once this is public — will need per-visitor sessions
 - Also noticed: across several tricky questions (ML projects, personal interests), the agent consistently refused to fabricate details it didn't have, instead pointing to real sources. This is exactly the trust behavior I want
 - Next: start the design phase — playful character, Afghan/Dari-Farsi visual motifs
+
+## [9/14/2026] — Real bio + conversational personality
+
+- Replaced the placeholder system prompt with a full bio (`about_ali.py`), pulled from my actual LinkedIn export — all work history, technical skills, certifications, languages, projects, and career goals
+- Kept the LinkedIn PDF itself (`Profile.pdf`) out of the repo via `.gitignore` since it has personal contact info — only the extracted bio content in `about_ali.py` is tracked
+- Rewrote the system prompt instructions to make the agent talk like a real person in first-person conversation instead of dumping bullet lists — short, natural answers, only answering what's actually asked
+- Tested with casual questions ("what do you do for work," "do you know Python," "what languages do you speak") — tone landed exactly right, felt like a real conversational reply instead of a chatbot readout
+- Next: visual design phase — playful character, Afghan/Dari-Farsi visual motifs
