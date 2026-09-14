@@ -55,3 +55,12 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Rewrote the system prompt instructions to make the agent talk like a real person in first-person conversation instead of dumping bullet lists — short, natural answers, only answering what's actually asked
 - Tested with casual questions ("what do you do for work," "do you know Python," "what languages do you speak") — tone landed exactly right, felt like a real conversational reply instead of a chatbot readout
 - Next: visual design phase — playful character, Afghan/Dari-Farsi visual motifs
+
+## [9/14/2026] — Full UI styling pass
+
+- Restyled the entire page: dark navy background, gold/maroon jewel-tone accents matching the avatar
+- Added chat bubbles (user messages right-aligned teal, replies left-aligned navy/gold) instead of plain text lines
+- Added a "thinking" indicator — animated bouncing dots that show while waiting for the API response, replaced with the real reply once it arrives
+- Wired in the custom avatar with a soft glow effect
+- Started (not finished) a resume download button — paused to find/prepare an actual resume PDF first
+- Prototype is now genuinely demo-ready to show friends
