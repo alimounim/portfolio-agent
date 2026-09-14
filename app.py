@@ -14,20 +14,26 @@ system_prompt = "You are an assistant representing Ali Rajabi, a data science gr
 def home():
 	return render_template("index.html")
 
+conversation_history = [] # lives outside the route function, persists between requests
+
 @app.route("/chat", methods=["POST"])
 
 def chat():
 	data = request.get_json()
 	user_message = data.get("message")
 
+	conversation_history.append({"role": "user", "content": user_message})
+
 	response = client.messages.create(
 		model = "claude-sonnet-4-6",
 		max_tokens = 300,
 		system = system_prompt,
-		messages =[{"role": "user", "content": user_message}]
+		messages =conversation_history
 	)
 
 	reply = response.content[0].text
+	conversation_history.append({"role": "assistant", "content": reply})
+
 	return jsonify({"reply":reply})
 
 if __name__=="__main__":

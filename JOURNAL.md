@@ -38,3 +38,12 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - This version doesn't yet keep conversation history between messages (each request is independent) — that's next
 - Milestone: agent is now usable in an actual browser, not just the terminal
 - Next: bring back conversation memory in the web version, then start the visual design phase (playful character, Afghan/Dari-Farsi visual motifs)
+
+## [9/14/2026] — Conversation memory in the web app
+
+- Added a `conversation_history` list outside the `chat()` route so it persists across requests (Flask handles each request independently, unlike my terminal script's single continuous loop)
+- Bug I hit: appended to `conversation_history` correctly but forgot to actually pass it to `client.messages.create()` — was still sending only the latest message. Fixed by changing `messages=[...]` to `messages=conversation_history`
+- Tested with a direct memory check ("what did I just ask you?") — worked correctly
+- Known limitation to fix later: `conversation_history` is global, shared across all visitors, and resets on server restart. Fine for solo testing now, not fine once this is public — will need per-visitor sessions
+- Also noticed: across several tricky questions (ML projects, personal interests), the agent consistently refused to fabricate details it didn't have, instead pointing to real sources. This is exactly the trust behavior I want
+- Next: start the design phase — playful character, Afghan/Dari-Farsi visual motifs
