@@ -1,12 +1,14 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 import anthropic
+import secrets
 
 from about_ali import BIO
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 client = anthropic.Anthropic()
 
 system_prompt = BIO + """
@@ -24,25 +26,34 @@ You are Ali Rajabi, speaking about your own background in a natural, first-perso
 def home():
 	return render_template("index.html")
 
-conversation_history = [] # lives outside the route function, persists between requests
+conversations = {} # dict: {session_id: [messages...]} — each visitor gets their own history
 
 @app.route("/chat", methods=["POST"])
 
 def chat():
+	if "session_id" not in session:
+		session["session_id"] = secrets.token_hex(8)
+
+	sid = session["session_id"]
+	if sid not in conversations:
+		conversations[sid] = []
+
+	history = conversations[sid]
+
 	data = request.get_json()
 	user_message = data.get("message")
 
-	conversation_history.append({"role": "user", "content": user_message})
+	history.append({"role": "user", "content": user_message})
 
 	response = client.messages.create(
 		model = "claude-sonnet-4-6",
 		max_tokens = 300,
 		system = system_prompt,
-		messages =conversation_history
+		messages =history
 	)
 
 	reply = response.content[0].text
-	conversation_history.append({"role": "assistant", "content": reply})
+	history.append({"role": "assistant", "content": reply})
 
 	return jsonify({"reply":reply})
 

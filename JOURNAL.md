@@ -70,3 +70,12 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Added my actual resume PDF to static/files/
 - Added a "View full résumé (PDF)" button below the subtitle, opens in a new tab via url_for
 - Tested that it opens correctly in the browser
+
+## [9/15/2026] — Fixed shared session bug
+
+- Replaced the global conversation_history list with a conversations dictionary keyed by a per-visitor session_id (using Flask's session + secrets.token_hex)
+- Hit a naming bug — declared the dict as conversation_history but referenced conversations everywhere else; renamed to match
+- Tested with two simulated recruiter conversations in parallel — confirmed each stayed isolated and coherent, no cross-contamination
+- Agent handled realistic recruiter Q&A well — conversational tone, relevant detail pulled from bio, asked good follow-up questions
+- Noted a watch-item: first-person phrasing can read as more confident than intended when asked about specific unstated experience — worth monitoring, not an immediate fix
+- Next: deploy online so this is accessible via a real URL, not just localhost
