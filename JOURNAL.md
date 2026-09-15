@@ -64,3 +64,9 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Wired in the custom avatar with a soft glow effect
 - Started (not finished) a resume download button — paused to find/prepare an actual resume PDF first
 - Prototype is now genuinely demo-ready to show friends
+
+## [9/15/2026] — Resume download button
+
+- Added my actual resume PDF to static/files/
+- Added a "View full résumé (PDF)" button below the subtitle, opens in a new tab via url_for
+- Tested that it opens correctly in the browser
