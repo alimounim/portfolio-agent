@@ -26,11 +26,22 @@ You are Ali Rajabi, speaking about your own background in a natural, first-perso
 def home():
 	return render_template("index.html")
 
+@app.route("/projects")
+def projects():
+	return render_template("projects.html")
+
+@app.route("/certifications")
+def certifications():
+	return render_template("certifications.html")
+
+@app.route("/research")
+def research():
+	return render_template("research.html")
+
 conversations = {} # dict: {session_id: [messages...]} — each visitor gets their own history
 
 @app.route("/chat", methods=["POST"])
-
-def chat():
+def chat(): 
 	if "session_id" not in session:
 		session["session_id"] = secrets.token_hex(8)
 

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Ali Rajabi — Projects{% endblock %}
+{% block content %}
+
+<style>
+    .page-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+    .section-title {
+        width: 100%;
+        max-width: 560px;
+        color: #d4af37;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 32px 0 12px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #2a2a38;
+    }
+    .section-title:first-of-type {
+        margin-top: 0;
+    }
+    .project-card {
+        width: 100%;
+        max-width: 560px;
+        background: #1a1a24;
+        border: 1px solid #2a2a38;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        cursor: pointer;
+        transition: border-color 0.25s ease, transform 0.25s ease;
+        overflow: hidden;
+    }
+    .project-card:hover {
+        border-color: #d4af37;
+        transform: translateY(-2px);
+    }
+    .project-card h3 {
+        color: #d4af37;
+        margin: 0;
+        font-size: 16px;
+    }
+    .project-card p {
+        color: #c9bfa8;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease;
+    }
+    .project-card:hover p {
+        max-height: 200px;
+        opacity: 1;
+        margin-top: 10px;
+    }
+    .empty-note {
+        width: 100%;
+        max-width: 560px;
+        color: #6b6459;
+        font-size: 13px;
+        font-style: italic;
+        margin-bottom: 16px;
+    }
+</style>
+
+<h1 class="page-title">Projects</h1>
+
+<div class="section-title">Data Science</div>
+
+<div class="project-card">
+    <h3>Portfolio AI Agent</h3>
+    <p>An intelligent, context-aware personal agent built to synthesize professional background, project history, and technical proficiencies for interactive evaluations — the site you're using right now.</p>
+</div>
+
+<div class="project-card">
+    <h3>Course Recommendation Engine</h3>
+    <p>An end-to-end recommendation pipeline for liberal arts curricula using NLP embeddings and collaborative filtering.</p>
+</div>
+
+<div class="project-card">
+    <h3>Vision-Based Drone Sense-and-Avoid System</h3>
+    <p>A real-time computer vision perception pipeline for UAVs/UAM to detect aerial obstacles and enable autonomous collision avoidance using deep learning.</p>
+</div>
+
+<div class="section-title">Exploratory Data Analysis</div>
+<p class="empty-note">More coming soon.</p>
+
+<div class="section-title">Data Visualization</div>
+<p class="empty-note">More coming soon.</p>
+
+<div class="section-title">Fun Projects</div>
+
+<div class="project-card">
+    <h3>Omni-Visualizer</h3>
+    <p>A multi-language execution and data structure visualization application to dynamically inspect state trees across Python, C++, Java, and JavaScript.</p>
+</div>
+
+{% endblock %}

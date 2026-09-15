@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Ali Rajabi — Research{% endblock %}
+{% block content %}
+
+<style>
+    .page-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+    .research-card {
+        width: 100%;
+        max-width: 560px;
+        background: #1a1a24;
+        border: 1px solid #2a2a38;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+    }
+    .research-card h3 {
+        color: #d4af37;
+        margin: 0 0 8px;
+        font-size: 16px;
+    }
+    .research-card p {
+        color: #c9bfa8;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+</style>
+
+<h1 class="page-title">Research</h1>
+
+<div class="research-card">
+    <h3>Vision-Based Drone Sense-and-Avoid System</h3>
+    <p>Ongoing research and coursework project building a real-time computer vision perception pipeline for UAVs and urban air mobility (UAM) platforms. The system is designed to detect aerial obstacles under edge-device constraints and enable autonomous collision avoidance using deep learning — addressing one of the core technical challenges facing safe, scalable drone and air taxi operations.</p>
+</div>
+
+<div class="research-card">
+    <h3>Urban Air Mobility: Technical and AI Challenges</h3>
+    <p>An independent research paper examining the technical and AI-driven challenges facing urban air mobility — covering autonomous navigation, sense-and-avoid systems, airspace management, and the broader engineering obstacles to deploying aerial autonomous vehicles safely at scale.</p>
+</div>
+
+{% endblock %}

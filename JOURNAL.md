@@ -79,3 +79,12 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Agent handled realistic recruiter Q&A well — conversational tone, relevant detail pulled from bio, asked good follow-up questions
 - Noted a watch-item: first-person phrasing can read as more confident than intended when asked about specific unstated experience — worth monitoring, not an immediate fix
 - Next: deploy online so this is accessible via a real URL, not just localhost
+
+## [9/15/2026] — Multi-page site with template inheritance
+
+- Introduced Flask template inheritance: base.html holds shared nav + styling, individual pages extend it with {% block content %}
+- Added Projects, Certifications, and Research pages alongside the existing Chat homepage
+- Hit a TemplateNotFound error again — this time from route/template creation order, plus a decorator-ordering bug in app.py (route decorator was pointing to the wrong function)
+- Organized Projects into categorized sections (Data Science, Exploratory Data Analysis, Data Visualization, Fun Projects) with empty placeholder sections for categories I'll fill in later
+- Added hover-to-expand project cards using pure CSS transitions (no JS) — cards show just the title by default, description smoothly expands on hover
+- Site now has real navigation between Chat, Projects, Certifications, and Research
