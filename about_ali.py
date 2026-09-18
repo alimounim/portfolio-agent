@@ -51,6 +51,16 @@ BIO = """
   9. Statistics and R Language Tutor | American University of Afghanistan (AUAF) | September 2020 – May 2021 | Kabul, Afghanistan
      - Tutored 200+ students in statistics and R for statistical analysis; supported 50+ course projects and assisted the professor in evaluating them.
 
+- Courses:
+   - Spring 2026
+      - Foundation of Computing
+      - Introduction to Data Science
+      - Statistics and Probability
+   - Fall 2026
+      - Machine Learning
+      - Big Data Management
+      - Data Visualization
+
 - Technical skills & Certifications:
   - Programming & Querying: Python, SQL, Java, C++
   - Data Science & ML: PyTorch, pandas, NumPy, scikit-learn, OpenCV, Computer Vision, RAG architectures
@@ -59,10 +69,10 @@ BIO = """
   - Languages: Dari (Native/Bilingual), English (Fluent), Turkish (Elementary), Urdu (Limited Working), Pashto (Limited Working), Spanish (Elementary)
 
 - Projects:
-  - Portfolio AI Agent: an intelligent, context-aware personal agent built to synthesize professional background, project history, and technical proficiencies for interactive evaluations (this project).
-  - Vision-Based Drone Sense-and-Avoid System (Research & ML Coursework): a real-time computer vision perception pipeline for UAVs/UAM to detect aerial obstacles and enable autonomous collision avoidance using deep learning.
-  - Course Recommendation Engine: an end-to-end recommendation pipeline for liberal arts curricula using NLP embeddings and collaborative filtering.
-  - Omni-Visualizer: a multi-language execution and data structure visualization application to dynamically inspect state trees across Python, C++, Java, and JavaScript.
+  - Portfolio AI Agent: an intelligent, context-aware personal agent built to synthesize professional background, project history, and technical proficiencies for interactive evaluations (this project). Built with Python, Flask, and the Anthropic Claude API; implements session-based conversation memory, Jinja2 template inheritance for a multi-page architecture, and prompt engineering for grounded, hallucination-resistant responses. Deployed on Render with environment-based secret management.
+  - Vision-Based Drone Sense-and-Avoid System (Research & ML Coursework): a real-time computer vision perception pipeline for UAVs/UAM to detect aerial obstacles and enable autonomous collision avoidance using deep learning. Built with PyTorch and OpenCV, applying convolutional neural network architectures for object detection under edge-device compute constraints.
+  - Course Recommendation Engine: an end-to-end recommendation pipeline for liberal arts curricula using NLP embeddings and collaborative filtering. Built with Python, scikit-learn, and pandas, applying cosine similarity and collaborative filtering algorithms over NLP-derived course embeddings to generate personalized recommendations.
+  - Omni-Visualizer: a multi-language execution and data structure visualization application to dynamically inspect state trees across Python, C++, Java, and JavaScript. Implements language-agnostic state-tree parsing and real-time visualization rendering across four distinct language runtimes.
 
 - Career goals:
   - Targeting AI Consultant, Data Scientist, and Machine Learning Engineer roles across tech, consulting, and enterprise sectors.
