@@ -88,3 +88,12 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Organized Projects into categorized sections (Data Science, Exploratory Data Analysis, Data Visualization, Fun Projects) with empty placeholder sections for categories I'll fill in later
 - Added hover-to-expand project cards using pure CSS transitions (no JS) — cards show just the title by default, description smoothly expands on hover
 - Site now has real navigation between Chat, Projects, Certifications, and Research
+
+## [9/18/2026] — Solar system social links
+
+- Added LinkedIn, GitHub, and Handshake icons arranged around the avatar in a "solar system" layout (sun = avatar, planets = links at different sizes/orbit distances)
+- Attempted a CSS hover-triggered orbit animation (icons circling around the avatar) — spent significant time debugging (rotate/translate transforms, then a rotating-wrapper technique) but couldn't get real circular motion working reliably
+- Simplified to static positions with a clean scale + glow hover effect instead — reliable, looks good, avoided sinking more time into a finicky animation
+- Also added markdown rendering (marked.js) so the chat agent's bullet points and formatting actually display properly instead of showing raw dashes/asterisks
+- Updated system prompt to explicitly use markdown bullet lists for multi-item answers (courses, certifications, projects)
+- Lesson: not every idea needs to be fully realized as originally envisioned — knowing when to simplify and ship is its own skill

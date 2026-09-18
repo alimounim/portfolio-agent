@@ -3,11 +3,71 @@
 {% block content %}
 
 <style>
+    .solar-system {
+        position: relative;
+        width: 320px;
+        height: 320px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .orbit-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border: 1px dashed #2a2a38;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+    .orbit-1 { width: 180px; height: 180px; }
+    .orbit-2 { width: 260px; height: 260px; }
+
+    .planet {
+        position: absolute;
+        border-radius: 50%;
+        background: #1a1a24;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-family: sans-serif;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .planet:hover {
+        transform: scale(1.15);
+        box-shadow: 0 0 16px rgba(212,175,55,0.4);
+    }
+
+    .planet-linkedin {
+        width: 48px; height: 48px;
+        border: 2px solid #0A66C2;
+        color: #0A66C2;
+        font-size: 13px;
+        top: 68px; left: 240px;
+    }
+    .planet-github {
+        width: 40px; height: 40px;
+        border: 2px solid #e8dcc0;
+        color: #e8dcc0;
+        font-size: 11px;
+        top: 210px; left: 254px;
+    }
+    .planet-handshake {
+        width: 32px; height: 32px;
+        border: 2px solid #d4af37;
+        color: #d4af37;
+        font-size: 9px;
+        top: 224px; left: 46px;
+    }
+
     .avatar-wrap {
         position: relative;
         width: 180px;
         height: 180px;
-        margin-bottom: 24px;
+        z-index: 1;
     }
     .avatar-glow {
         position: absolute;
@@ -131,10 +191,20 @@
     }
 </style>
 
-<div class="avatar-wrap">
-    <div class="avatar-glow"></div>
-    <img src="{{ url_for('static', filename='images/avatar.jpeg') }}" alt="Ali Rajabi">
+<div class="solar-system">
+    <div class="orbit-ring orbit-1"></div>
+    <div class="orbit-ring orbit-2"></div>
+
+    <div class="avatar-wrap">
+        <div class="avatar-glow"></div>
+        <img src="{{ url_for('static', filename='images/avatar.jpeg') }}" alt="Ali Rajabi">
+    </div>
+
+    <a href="https://www.linkedin.com/in/ali-mounim-rajabi/" target="_blank" class="planet planet-linkedin">in</a>
+    <a href="https://github.com/alimounim" target="_blank" class="planet planet-github">GH</a>
+    <a href="https://uta.joinhandshake.com/profiles/ali-mounim-rajabi" target="_blank" class="planet planet-handshake">HS</a>
 </div>
+
 <h1>Ali Rajabi</h1>
 <p class="subtitle">Ask me about my background, projects, and skills</p>
 <a href="{{ url_for('static', filename='files/resume.pdf') }}" target="_blank" class="resume-link">View full résumé (PDF)</a>
@@ -168,7 +238,7 @@
         .then(response => response.json())
         .then(data => {
             const thinkingEl = document.getElementById(thinkingId);
-            thinkingEl.outerHTML = `<div class="msg claude">${data.reply}</div>`;
+            thinkingEl.outerHTML = `<div class="msg claude">${marked.parse(data.reply)}</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
         });
     }
