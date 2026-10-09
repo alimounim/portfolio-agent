@@ -40,6 +40,20 @@
         border-color: #d4af37;
         transform: translateY(-2px);
     }
+    a.project-card {
+        display: block;
+        text-decoration: none;
+    }
+    .repo-tag {
+        float: right;
+        color: #6b6459;
+        font-size: 12px;
+        font-weight: 400;
+        transition: color 0.25s ease;
+    }
+    a.project-card:hover .repo-tag {
+        color: #d4af37;
+    }
     .project-card h3 {
         color: #d4af37;
         margin: 0;
@@ -74,25 +88,25 @@
 
 <div class="section-title">Data Science</div>
 
-<div class="project-card">
-    <h3>Portfolio AI Agent</h3>
+<a class="project-card" href="https://github.com/alimounim/portfolio-agent" target="_blank" rel="noopener">
+    <h3>Portfolio AI Agent<span class="repo-tag">GitHub ↗</span></h3>
     <p>An intelligent, context-aware personal agent built to synthesize professional background, project history, and technical proficiencies for interactive evaluations — the site you're using right now. Built with Python, Flask, and the Anthropic Claude API; implements session-based conversation memory, Jinja2 template inheritance for a multi-page architecture, and prompt engineering for grounded, hallucination-resistant responses. Deployed on Render with environment-based secret management.</p>
-</div>
+</a>
 
-<div class="project-card">
-    <h3>Course Recommendation Engine</h3>
+<a class="project-card" href="https://github.com/alimounim/Course-Recommendation-System" target="_blank" rel="noopener">
+    <h3>Course Recommendation Engine<span class="repo-tag">GitHub ↗</span></h3>
     <p>An end-to-end recommendation pipeline for liberal arts curricula using NLP embeddings and collaborative filtering. Built with Python, scikit-learn, and pandas, applying cosine similarity and collaborative filtering algorithms over NLP-derived course embeddings to generate personalized recommendations.</p>
-</div>
+</a>
 
 <div class="project-card">
     <h3>Vision-Based Drone Sense-and-Avoid System</h3>
     <p>A real-time computer vision perception pipeline for UAVs/UAM to detect aerial obstacles and enable autonomous collision avoidance using deep learning. Built with PyTorch and OpenCV, applying convolutional neural network architectures for object detection under edge-device compute constraints.</p>
 </div>
 
-<div class="project-card">
-    <h3>MavDine Cookbook Platform Database</h3>
+<a class="project-card" href="https://github.com/alimounim/MavDineDatabase" target="_blank" rel="noopener">
+    <h3>MavDine Cookbook Platform Database<span class="repo-tag">GitHub ↗</span></h3>
     <p>A relational database for a digital cookbook platform, designed end to end from a business owner's requirements: EER modeling, relational mapping, functional dependencies, and BCNF normalization. Built in Oracle with 12 tables, PK/FK/UNIQUE/CHECK constraints, PL/SQL triggers, and seven analytical SQL queries using CTEs, window functions, outer joins, and relational division. Includes a Flask + python-oracledb web interface, built with Claude, for browsing and editing data over an encrypted TCPS connection.</p>
-</div>
+</a>
 
 <div class="section-title">Exploratory Data Analysis</div>
 <p class="empty-note">More coming soon.</p>
@@ -102,9 +116,9 @@
 
 <div class="section-title">Fun Projects</div>
 
-<div class="project-card">
-    <h3>Omni-Visualizer</h3>
+<a class="project-card" href="https://github.com/alimounim/Omni-Code-Visualizer" target="_blank" rel="noopener">
+    <h3>Omni-Visualizer<span class="repo-tag">GitHub ↗</span></h3>
     <p>A multi-language execution and data structure visualization application to dynamically inspect state trees across Python, C++, Java, and JavaScript. Implements language-agnostic state-tree parsing and real-time visualization rendering across four distinct language runtimes.</p>
-</div>
+</a>
 
 {% endblock %}
