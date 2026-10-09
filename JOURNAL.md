@@ -97,3 +97,14 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Also added markdown rendering (marked.js) so the chat agent's bullet points and formatting actually display properly instead of showing raw dashes/asterisks
 - Updated system prompt to explicitly use markdown bullet lists for multi-item answers (courses, certifications, projects)
 - Lesson: not every idea needs to be fully realized as originally envisioned — knowing when to simplify and ship is its own skill
+
+## [10/8/2026] — Added MavDine database project
+
+- Added a new project card to the Data Science section: MavDine Cookbook Platform Database, my DASC 5306 course project (repo: github.com/alimounim/MavDineDatabase)
+- Project covers the full database design cycle: business requirements → EER diagram → relational mapping with candidate keys and functional dependencies → BCNF check → Oracle implementation with constraints, PL/SQL triggers, test data, and 7 analytical SQL queries
+- Also built MavDine Manager, a Flask + python-oracledb web interface for the database, with the help of Claude, so I can browse, edit, and query tables through forms instead of typing SQL
+- Hit a connection problem along the way: the app couldn't reach the course database. Checking tnsnames.ora on Omega showed the database is actually an Oracle cloud database that only accepts encrypted (TCPS) connections, so I added a TCPS option
+- Added a detailed MavDine entry to the agent's bio (about_ali.py) so it can answer recruiter follow-ups about the design decisions and SQL techniques, not just the headline
+- Kept the card description short enough to fit the hover-expand limit (max-height 200px) so it doesn't get cut off
+- Before publishing, cleaned the project repo: moved files into phase folders, put the README at the repo root, and removed teammates' names and personal connection details from public files
+- Lesson: before publishing any course work, check what personal information is in it, including hidden PDF metadata
