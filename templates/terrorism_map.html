@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Ali Rajabi — Terrorist Incidents in Western Europe{% endblock %}
+{% block title %}Ali Rajabi — Terrorism in Western Europe{% endblock %}
 {% block content %}
 
 <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
@@ -87,52 +87,56 @@
 
 <div class="case-study">
     <a class="back-link" href="/projects">← Back to Projects</a>
-    <h1>Terrorist Incidents by Country, Western Europe (1970–2020)</h1>
+    <h1>Terrorism in Western Europe, 1970–2020</h1>
     <div class="meta">
-        Tableau · Global Terrorism Database ·
-        <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerroristIncidentsbyCountryWesternEurope1970-2020" target="_blank" rel="noopener">Open on Tableau Public ↗</a>
+        Tableau Story · Global Terrorism Database ·
+        <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard" target="_blank" rel="noopener">Open on Tableau Public ↗</a>
     </div>
 </div>
 
 <div class="viz-frame">
     <tableau-viz
-        src="https://public.tableau.com/views/TerroristIncidentsbyCountryWesternEurope1970-2020/TerroristIncidentsbyCountryWesternEurope1970-2020"
+        src="https://public.tableau.com/views/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard"
         toolbar="bottom"
         hide-tabs
-        height="640px">
+        height="860px">
     </tableau-viz>
 </div>
-<p class="viz-note">Drag the Year slider to see one year at a time. If the map doesn't load, <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerroristIncidentsbyCountryWesternEurope1970-2020" target="_blank" rel="noopener">view it on Tableau Public</a>.</p>
+<p class="viz-note">Use the arrows or caption boxes at the top to move between the four pages. If the story doesn't load, <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard" target="_blank" rel="noopener">view it on Tableau Public</a>.</p>
 
 <div class="case-study">
     <h2>Problem</h2>
-    <p>Where in Western Europe did terrorist attacks happen, and how did that change over 50 years? A raw table of 17,328 incidents can't answer that at a glance. I wanted one interactive map where anyone can pick a year and see right away which countries were hit hardest.</p>
+    <p>Where in Western Europe did terrorist attacks happen, who carried them out, how deadly were they, and how did all of that change over 50 years? A raw table of 17,328 incidents can't answer those questions at a glance. I built a four-page Tableau story where each page answers one of them.</p>
 
     <h2>Approach</h2>
-    <p>I used the Global Terrorism Database file for Western Europe (GTD region 8): 17,328 incidents in 23 countries, 1970–2020.</p>
+    <p>I used the Global Terrorism Database file for Western Europe (GTD region 8): 17,328 incidents in 23 countries, 1970–2020. Each incident has one unique <code>eventid</code>, so a distinct count of it gives the number of attacks throughout.</p>
     <ol>
-        <li>Loaded <code>region_8.csv</code> into Tableau and checked that the location fields were read as geographic data.</li>
-        <li>Gave the country field a Country/Region role so Tableau could draw each country as a filled shape.</li>
-        <li>Colored each country by the number of attacks. Each incident has one unique <code>eventid</code>, so a distinct count of it gives the attack total.</li>
-        <li>Turned the year column into a discrete dimension and added it as a single-value slider, so the map shows one year at a time.</li>
-        <li>Added a clean tooltip (country and attack count), renamed the legend to "Number of Attacks", and checked the totals against the raw data.</li>
-        <li>Published the workbook to Tableau Public.</li>
+        <li><strong>Heatmap by country.</strong> A filled map colored by number of attacks, with a year slider so viewers can step through 1970–2020.</li>
+        <li><strong>Top 10 groups over time.</strong> A stacked area chart of yearly attacks by the 10 most active named groups, with a legend. Incidents with no known group were excluded before ranking.</li>
+        <li><strong>Attack types and casualties.</strong> A scatter plot of killed vs. wounded, colored by attack type and sized by total casualties, with incident details on hover.</li>
+        <li><strong>Monthly trend dashboard.</strong> A line chart of incidents per month, a bar chart of the most common attack types, and a table of the top 5 countries. Clicking any of them filters the other two.</li>
     </ol>
+    <p>I then combined the four views into a Tableau Story with a one-line headline on each page, and published it to Tableau Public.</p>
 
     <h2>Challenges</h2>
     <ul>
         <li><strong>541 incidents were missing from the map.</strong> Records from 1970–1990 list the country as "West Germany (FRG)", a name Tableau can't place on a map. I wrote a calculated field that maps it to "Germany", so all German incidents (1,357 total) show as one shape. The trade-off: pre-1990 West German attacks appear inside today's German borders.</li>
-        <li><strong>The calculated field threw "Can't compare integer and string values".</strong> The data also has a numeric <code>country</code> code column, and Tableau ignores case in field names, so <code>[Country]</code> pointed at the number column instead of the text one. Renaming the text field to Country Name and using <code>[Country Name]</code> fixed it.</li>
-        <li><strong>The color showed a meaningless sum.</strong> Dropping <code>eventid</code> on Color added up the ID numbers. Switching the measure to Count (Distinct) made each incident count once.</li>
-        <li><strong>The year acted like a number, not a filter.</strong> Tableau loaded the year as a continuous measure. Converting it to a discrete dimension made the year slider work.</li>
+        <li><strong>The calculated field threw "Can't compare integer and string values".</strong> The data also has a numeric <code>country</code> code column, and Tableau ignores case in field names, so <code>[Country]</code> pointed at the number column. Renaming the text field to Country Name and using <code>[Country Name]</code> fixed it.</li>
+        <li><strong>"Unknown" would have been the largest group.</strong> 5,304 incidents have no attributed group. Tableau applies a Top 10 filter before ordinary filters, so simply excluding Unknown left only 9 groups. Adding the exclude filter to context made it run first.</li>
+        <li><strong>Areas sloped across years when a group had no attacks.</strong> A discrete year header skips empty years, so Tableau drew a line straight across them. I built a real date field with <code>MAKEDATE</code> on a continuous axis and turned on Show Missing Values, so each band drops to zero.</li>
+        <li><strong>The scatter plot was unreadable.</strong> 10,436 of the 14,756 plotted incidents had zero casualties, and 92% of the rest were small, so nearly every point sat in one corner. I filtered to incidents with at least one casualty (noted in the caption) and used symmetric log axes, keeping exact counts in the tooltip.</li>
+        <li><strong>Blank casualty counts.</strong> Some incidents are missing deaths or injuries. They're left off the scatter axes, and the Total Casualties field uses <code>ZN()</code> so partial records still size correctly.</li>
+        <li><strong>4 incidents have no month.</strong> The month field leaves them blank instead of assigning a wrong date, so they can be filtered out of the monthly trend.</li>
     </ul>
 
     <h2>Insights</h2>
     <ul>
-        <li><strong>Attacks were concentrated in a few countries.</strong> Across all 50 years, the UK had the most incidents (5,513), followed by Spain (3,255) and France (2,751). Together they make up about 66% of the region's 17,328 incidents.</li>
-        <li><strong>The worst year was 1979, not recent decades.</strong> That year had 1,020 incidents, led by Spain (279), the UK (239) and France (212). This lines up with long-running separatist conflicts such as Northern Ireland and the Basque Country.</li>
-        <li><strong>The pattern shifted over time.</strong> By 2015 the total was far lower, but the ranking had changed: the UK led with 114, and Germany moved to second with 68.</li>
-        <li><strong>Data quirks matter.</strong> 5,304 incidents have no known group, and many have blank death or injury counts. Any follow-up analysis of groups or casualties has to deal with these gaps first.</li>
+        <li><strong>Attacks were concentrated in a few countries.</strong> The UK had the most incidents (5,513), followed by Spain (3,255) and France (2,751). The top five countries, with Italy and Greece, account for 84% of all incidents.</li>
+        <li><strong>The worst period was the late 1970s.</strong> 1979 had 1,020 incidents, the most of any year, and May 1979 alone had 151. Spain (279), the UK (239) and France (212) led that year.</li>
+        <li><strong>Two separatist groups dominated.</strong> The IRA (2,667) and ETA (2,022) carried out two-thirds of the top 10 groups' 7,030 attacks. Group attacks peaked in 1979 (592), and 93% happened before 2000.</li>
+        <li><strong>Bombings were the most common and most harmful attack.</strong> Half of all incidents (8,655) were bombings, causing 16,717 casualties, mostly injuries.</li>
+        <li><strong>Assassinations killed more people than bombings.</strong> They caused 2,676 deaths to bombings' 2,461, from about a third as many incidents (2,956).</li>
+        <li><strong>The pattern shifted over time.</strong> By 2015 the total was far lower, and the UK (114) and Germany (68) led instead of Spain.</li>
     </ul>
 </div>
 

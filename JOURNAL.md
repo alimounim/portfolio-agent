@@ -115,3 +115,10 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Built from the Global Terrorism Database (Western Europe, 17,328 incidents); the map has a year slider (1970–2020) and colors each country by number of attacks, so viewers can see how attacks moved across countries over time
 - The card links to the live viz on Tableau Public instead of a GitHub repo, so its tag says "Tableau ↗"
 - Added the viz to the agent's bio (about_ali.py) so the chat agent can talk about it
+
+## [10/24/2026] — Terrorism case study expanded to the full Tableau story
+
+- Finished all four Tableau views for the terrorism homework (heatmap, top 10 groups stacked area, killed vs. wounded scatter, monthly trend dashboard) and combined them into a Tableau Story
+- Pointed the case study page's embed at the story instead of the single map, so visitors can click through all four pages on my site
+- Rewrote the case study to cover every view: the new challenges (Top N filter order, gaps in the stacked areas, a scatter plot crushed into one corner) and the new insights
+- Updated the project card and the agent's bio to match
