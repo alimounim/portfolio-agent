@@ -108,3 +108,10 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Kept the card description short enough to fit the hover-expand limit (max-height 200px) so it doesn't get cut off
 - Before publishing, cleaned the project repo: moved files into phase folders, put the README at the repo root, and removed teammates' names and personal connection details from public files
 - Lesson: before publishing any course work, check what personal information is in it, including hidden PDF metadata
+
+## [10/24/2026] — First Data Visualization project
+
+- Added the first project card to the Data Visualization section: Terrorist Incidents by Country, Western Europe (1970-2020), a choropleth map I built in Tableau Public
+- Built from the Global Terrorism Database (Western Europe, 17,328 incidents); the map has a year slider (1970–2020) and colors each country by number of attacks, so viewers can see how attacks moved across countries over time
+- The card links to the live viz on Tableau Public instead of a GitHub repo, so its tag says "Tableau ↗"
+- Added the viz to the agent's bio (about_ali.py) so the chat agent can talk about it
