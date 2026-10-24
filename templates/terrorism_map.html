@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Ali Rajabi — Terrorist Incidents in Western Europe{% endblock %}
+{% block content %}
+
+<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+
+<style>
+    .case-study {
+        width: 100%;
+        max-width: 760px;
+    }
+    .back-link {
+        color: #9a8f7a;
+        font-size: 13px;
+        text-decoration: none;
+    }
+    .back-link:hover {
+        color: #d4af37;
+    }
+    .case-study h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 16px 0 8px;
+    }
+    .meta {
+        color: #6b6459;
+        font-size: 13px;
+        margin-bottom: 24px;
+    }
+    .meta a {
+        color: #d4af37;
+        text-decoration: none;
+    }
+    .viz-frame {
+        width: 100%;
+        max-width: 1000px;
+        background: #1a1a24;
+        border: 1px solid #2a2a38;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 8px;
+        overflow-x: auto;
+    }
+    .viz-frame tableau-viz {
+        display: block;
+        width: 100%;
+    }
+    .viz-note {
+        width: 100%;
+        max-width: 1000px;
+        color: #6b6459;
+        font-size: 12px;
+        margin-bottom: 32px;
+    }
+    .viz-note a {
+        color: #9a8f7a;
+    }
+    .case-study h2 {
+        color: #d4af37;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 32px 0 12px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #2a2a38;
+    }
+    .case-study p, .case-study li {
+        color: #c9bfa8;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+    .case-study li {
+        margin-bottom: 10px;
+    }
+    .case-study strong {
+        color: #e8dcc0;
+    }
+    .case-study code {
+        background: #1a1a24;
+        border: 1px solid #2a2a38;
+        border-radius: 4px;
+        padding: 1px 5px;
+        font-size: 13px;
+    }
+</style>
+
+<div class="case-study">
+    <a class="back-link" href="/projects">← Back to Projects</a>
+    <h1>Terrorist Incidents by Country, Western Europe (1970–2020)</h1>
+    <div class="meta">
+        Tableau · Global Terrorism Database ·
+        <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerroristIncidentsbyCountryWesternEurope1970-2020" target="_blank" rel="noopener">Open on Tableau Public ↗</a>
+    </div>
+</div>
+
+<div class="viz-frame">
+    <tableau-viz
+        src="https://public.tableau.com/views/TerroristIncidentsbyCountryWesternEurope1970-2020/TerroristIncidentsbyCountryWesternEurope1970-2020"
+        toolbar="bottom"
+        hide-tabs
+        height="640px">
+    </tableau-viz>
+</div>
+<p class="viz-note">Drag the Year slider to see one year at a time. If the map doesn't load, <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerroristIncidentsbyCountryWesternEurope1970-2020" target="_blank" rel="noopener">view it on Tableau Public</a>.</p>
+
+<div class="case-study">
+    <h2>Problem</h2>
+    <p>Where in Western Europe did terrorist attacks happen, and how did that change over 50 years? A raw table of 17,328 incidents can't answer that at a glance. I wanted one interactive map where anyone can pick a year and see right away which countries were hit hardest.</p>
+
+    <h2>Approach</h2>
+    <p>I used the Global Terrorism Database file for Western Europe (GTD region 8): 17,328 incidents in 23 countries, 1970–2020.</p>
+    <ol>
+        <li>Loaded <code>region_8.csv</code> into Tableau and checked that the location fields were read as geographic data.</li>
+        <li>Gave the country field a Country/Region role so Tableau could draw each country as a filled shape.</li>
+        <li>Colored each country by the number of attacks. Each incident has one unique <code>eventid</code>, so a distinct count of it gives the attack total.</li>
+        <li>Turned the year column into a discrete dimension and added it as a single-value slider, so the map shows one year at a time.</li>
+        <li>Added a clean tooltip (country and attack count), renamed the legend to "Number of Attacks", and checked the totals against the raw data.</li>
+        <li>Published the workbook to Tableau Public.</li>
+    </ol>
+
+    <h2>Challenges</h2>
+    <ul>
+        <li><strong>541 incidents were missing from the map.</strong> Records from 1970–1990 list the country as "West Germany (FRG)", a name Tableau can't place on a map. I wrote a calculated field that maps it to "Germany", so all German incidents (1,357 total) show as one shape. The trade-off: pre-1990 West German attacks appear inside today's German borders.</li>
+        <li><strong>The calculated field threw "Can't compare integer and string values".</strong> The data also has a numeric <code>country</code> code column, and Tableau ignores case in field names, so <code>[Country]</code> pointed at the number column instead of the text one. Renaming the text field to Country Name and using <code>[Country Name]</code> fixed it.</li>
+        <li><strong>The color showed a meaningless sum.</strong> Dropping <code>eventid</code> on Color added up the ID numbers. Switching the measure to Count (Distinct) made each incident count once.</li>
+        <li><strong>The year acted like a number, not a filter.</strong> Tableau loaded the year as a continuous measure. Converting it to a discrete dimension made the year slider work.</li>
+    </ul>
+
+    <h2>Insights</h2>
+    <ul>
+        <li><strong>Attacks were concentrated in a few countries.</strong> Across all 50 years, the UK had the most incidents (5,513), followed by Spain (3,255) and France (2,751). Together they make up about 66% of the region's 17,328 incidents.</li>
+        <li><strong>The worst year was 1979, not recent decades.</strong> That year had 1,020 incidents, led by Spain (279), the UK (239) and France (212). This lines up with long-running separatist conflicts such as Northern Ireland and the Basque Country.</li>
+        <li><strong>The pattern shifted over time.</strong> By 2015 the total was far lower, but the ranking had changed: the UK led with 114, and Germany moved to second with 68.</li>
+        <li><strong>Data quirks matter.</strong> 5,304 incidents have no known group, and many have blank death or injury counts. Any follow-up analysis of groups or casualties has to deal with these gaps first.</li>
+    </ul>
+</div>
+
+{% endblock %}

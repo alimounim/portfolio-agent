@@ -31,6 +31,10 @@ def home():
 def projects():
 	return render_template("projects.html")
 
+@app.route("/projects/terrorism-map")
+def terrorism_map():
+	return render_template("terrorism_map.html")
+
 @app.route("/certifications")
 def certifications():
 	return render_template("certifications.html")
