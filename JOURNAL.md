@@ -129,3 +129,10 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Moved the shared case study layout into one template (case_study.html) so all three case study pages look the same and new ones only need their own text
 - Pulled the numbers for each case study from the original data files, and the churn findings and recommendations from the dashboard's own text panel
 - Added both projects to the agent's bio
+
+## [10/25/2026] — Power BI part of the terrorism case study
+
+- Added Part 2 to the terrorism case study page: the four-page Power BI report (location map, group comparison, weapon treemap, target dashboard), with its own approach, challenges and insights
+- Tried to embed the live report, but my university account has Publish to web turned off, and the secure embed link asks visitors to sign in with a UTA account
+- Exported the report to PDF instead, turned each page into an image, and added them with captions; clicking an image opens it full size
+- Split the page into Part 1 (Tableau) and Part 2 (Power BI) so the eight visualizations read as one project

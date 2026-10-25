@@ -1,7 +1,7 @@
 {% extends "case_study.html" %}
 {% block title %}Ali Rajabi — Terrorism in Western Europe{% endblock %}
 {% block heading %}Terrorism in Western Europe, 1970–2020{% endblock %}
-{% block meta %}Tableau Story · Global Terrorism Database{% endblock %}
+{% block meta %}Tableau Story + Power BI Report · Global Terrorism Database{% endblock %}
 {% block viz_link %}https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard{% endblock %}
 
 {% block viz %}
@@ -16,9 +16,11 @@
 
 {% block body %}
     <h2>Problem</h2>
-    <p>Where in Western Europe did terrorist attacks happen, who carried them out, how deadly were they, and how did all of that change over 50 years? A raw table of 17,328 incidents can't answer those questions at a glance. I built a four-page Tableau story where each page answers one of them.</p>
+    <p>Where in Western Europe did terrorist attacks happen, who carried them out, with what weapons, against whom, and how did all of that change over 50 years? A raw table of 17,328 incidents can't answer those questions at a glance. I built eight visualizations on the same data, four in Tableau (the story above) and four in a Power BI report, each answering one question.</p>
 
-    <h2>Approach</h2>
+    <h2>Part 1: Tableau story</h2>
+
+    <h3>Approach</h3>
     <p>I used the Global Terrorism Database file for Western Europe (GTD region 8): 17,328 incidents in 23 countries, 1970–2020. Each incident has one unique <code>eventid</code>, so a distinct count of it gives the number of attacks throughout.</p>
     <ol>
         <li><strong>Heatmap by country.</strong> A filled map colored by number of attacks, with a year slider so viewers can step through 1970–2020.</li>
@@ -28,7 +30,7 @@
     </ol>
     <p>I then combined the four views into a Tableau Story with a one-line headline on each page, and published it to Tableau Public.</p>
 
-    <h2>Challenges</h2>
+    <h3>Challenges</h3>
     <ul>
         <li><strong>541 incidents were missing from the map.</strong> Records from 1970–1990 list the country as "West Germany (FRG)", a name Tableau can't place on a map. I wrote a calculated field that maps it to "Germany", so all German incidents (1,357 total) show as one shape. The trade-off: pre-1990 West German attacks appear inside today's German borders.</li>
         <li><strong>The calculated field threw "Can't compare integer and string values".</strong> The data also has a numeric <code>country</code> code column, and Tableau ignores case in field names, so <code>[Country]</code> pointed at the number column. Renaming the text field to Country Name and using <code>[Country Name]</code> fixed it.</li>
@@ -39,7 +41,7 @@
         <li><strong>4 incidents have no month.</strong> The month field leaves them blank instead of assigning a wrong date, so they can be filtered out of the monthly trend.</li>
     </ul>
 
-    <h2>Insights</h2>
+    <h3>Insights</h3>
     <ul>
         <li><strong>Attacks were concentrated in a few countries.</strong> The UK had the most incidents (5,513), followed by Spain (3,255) and France (2,751). The top five countries, with Italy and Greece, account for 84% of all incidents.</li>
         <li><strong>The worst period was the late 1970s.</strong> 1979 had 1,020 incidents, the most of any year, and May 1979 alone had 151. Spain (279), the UK (239) and France (212) led that year.</li>
@@ -47,5 +49,67 @@
         <li><strong>Bombings were the most common and most harmful attack.</strong> Half of all incidents (8,655) were bombings, causing 16,717 casualties, mostly injuries.</li>
         <li><strong>Assassinations killed more people than bombings.</strong> They caused 2,676 deaths to bombings' 2,461, from about a third as many incidents (2,956).</li>
         <li><strong>The pattern shifted over time.</strong> By 2015 the total was far lower, and the UK (114) and Germany (68) led instead of Spain.</li>
+    </ul>
+
+    <h2>Part 2: Power BI report</h2>
+    <p>The Tableau story showed <em>where</em> and <em>when</em> attacks happened. I then built a four-page Power BI report on the same 17,328 incidents to ask <em>who</em> carried them out, <em>with what</em>, and <em>against whom</em>.</p>
+
+    <p>Power BI reports from a university account can't be published publicly, so here are the four report pages. Click any image to open it full size.</p>
+
+    <figure>
+        <a href="{{ url_for('static', filename='images/terrorism/powerbi-location-map.jpg') }}" target="_blank" rel="noopener">
+            <img src="{{ url_for('static', filename='images/terrorism/powerbi-location-map.jpg') }}" alt="Page 1: Terrorist attacks by location" loading="lazy">
+        </a>
+        <figcaption><strong>Page 1: Terrorist attacks by location.</strong> Azure Maps bubble map of every incident, sized by casualties, with Year and Country → Province/State slicers. Shown filtered to the United Kingdom, 1970–1977, when Northern Ireland dominates.</figcaption>
+    </figure>
+
+    <figure>
+        <a href="{{ url_for('static', filename='images/terrorism/powerbi-group-comparison.jpg') }}" target="_blank" rel="noopener">
+            <img src="{{ url_for('static', filename='images/terrorism/powerbi-group-comparison.jpg') }}" alt="Page 2: Top 5 group comparison" loading="lazy">
+        </a>
+        <figcaption><strong>Page 2: Top 5 group comparison.</strong> Cards showing total attacks, casualties and success rate for the top 5 named groups, with a timeline slicer. Shown for 1976.</figcaption>
+    </figure>
+
+    <figure>
+        <a href="{{ url_for('static', filename='images/terrorism/powerbi-weapon-treemap.jpg') }}" target="_blank" rel="noopener">
+            <img src="{{ url_for('static', filename='images/terrorism/powerbi-weapon-treemap.jpg') }}" alt="Page 3: Weapon type analysis" loading="lazy">
+        </a>
+        <figcaption><strong>Page 3: Weapon type analysis.</strong> Treemap sized by number of attacks and colored by deaths per attack (darker = deadlier), with drill-down to weapon subtypes. The table beside it keeps all 12 weapon types visible.</figcaption>
+    </figure>
+
+    <figure>
+        <a href="{{ url_for('static', filename='images/terrorism/powerbi-target-dashboard.jpg') }}" target="_blank" rel="noopener">
+            <img src="{{ url_for('static', filename='images/terrorism/powerbi-target-dashboard.jpg') }}" alt="Page 4: Target analysis dashboard" loading="lazy">
+        </a>
+        <figcaption><strong>Page 4: Target analysis dashboard.</strong> Donut of attacks by target type, killed vs. wounded by target type, and the 10 most frequently attacked specific targets. The buttons at the top are bookmarks that switch between views.</figcaption>
+    </figure>
+
+    <h3>Approach</h3>
+    <ol>
+        <li><strong>Prepared the data in Power Query.</strong> Added a Total Casualties column that counts blank death or injury figures as 0, merged West Germany into Germany to match the Tableau work, labeled 2,759 blank weapon subtypes "Not specified", and shortened a 70-character weapon label so it fits on a tile.</li>
+        <li><strong>Wrote DAX measures</strong> (Total Attacks, Casualties, Success Rate, Killed, Wounded, Avg Killed per Attack) so every number recalculates when a slicer, timeline or bookmark changes the view.</li>
+        <li><strong>Geospatial page.</strong> An Azure Maps bubble map of every incident by latitude and longitude, with bubble size showing casualties, a Year range slicer and a Country → Province/State slicer.</li>
+        <li><strong>Group comparison page.</strong> Cards for the top 5 groups showing attacks, casualties and success rate, driven by a Top N filter and a timeline slicer.</li>
+        <li><strong>Weapon page.</strong> A treemap sized by attacks and colored by deaths per attack, with drill-down from weapon type to subtype, plus a companion table so rare weapon types stay visible.</li>
+        <li><strong>Target dashboard.</strong> A donut of target types, a clustered column chart of killed vs. wounded by target type, a top 10 table of specific targets, and bookmark buttons that switch between three views.</li>
+    </ol>
+
+    <h3>Challenges</h3>
+    <ul>
+        <li><strong>The classic Map visual is being retired.</strong> Microsoft is phasing out the Bing-based Map visual, so I used Azure Maps instead.</li>
+        <li><strong>A region slicer that filtered nothing.</strong> The file covers only Western Europe, so <code>region_txt</code> has one value. I built a Country → Province/State hierarchy slicer instead, which lets users filter to places like Northern Ireland or the Basque Country.</li>
+        <li><strong>No Multi-row card.</strong> The new Card visual has replaced it, so I used it with three measures and the group name as a category.</li>
+        <li><strong>"Unknown" kept taking a top 5 slot.</strong> 5,304 incidents have no attributed group. A page-level filter removes them before the visual's Top N runs.</li>
+        <li><strong>Rare weapon types were invisible.</strong> Explosives had 8,818 attacks while 7 types had 123 combined. I grouped those 7 into one tile and added a table listing all 12 types with matching colors.</li>
+        <li><strong>Messy free text and blank categories.</strong> The <code>target1</code> column has 11,616 different spellings ("Bank" vs. "bank" vs. "unk"), so I used the standardized <code>targsubtype1_txt</code>. Its 1,190 blank values still ranked in the top 10, so I ranked by a measure that returns blank for them.</li>
+    </ul>
+
+    <h3>Insights</h3>
+    <ul>
+        <li><strong>Attacks cluster below the country level.</strong> Northern Ireland alone had 4,705 incidents, followed by the Basque Country (1,446) and Corsica (1,357). 2004, the year of the Madrid train bombings, had the most casualties (2,049).</li>
+        <li><strong>The groups changed completely over time.</strong> In the 1970s the top 5 were the IRA, ETA, Protestant extremists, the UVF and the Red Brigades. After 2000 they were ETA, the FLNC, dissident republicans, anarchists and jihadi-inspired extremists.</li>
+        <li><strong>Frequency and lethality are different stories.</strong> Jihadi-inspired extremists had 78 attacks after 2000 but 949 casualties. The FLNC had 641 attacks with a 96.6% success rate but only 117 casualties.</li>
+        <li><strong>The most common weapon is not the deadliest.</strong> Explosives made up half of all attacks but averaged 0.33 deaths each; firearms averaged 0.96 and automatic rifles 1.21.</li>
+        <li><strong>Who is targeted vs. who is harmed.</strong> Businesses were attacked most often (4,285) and had the most wounded, but private citizens had the most killed (1,691). Transportation was rarely targeted (458 attacks) yet had 4,208 casualties.</li>
     </ul>
 {% endblock %}
