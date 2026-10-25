@@ -1,0 +1,42 @@
+{% extends "case_study.html" %}
+{% block title %}Ali Rajabi — Call Center KPI Dashboard{% endblock %}
+{% block heading %}Call Center KPI Dashboard{% endblock %}
+{% block meta %}Tableau Dashboard · 5,000 calls, Jan–Mar 2021{% endblock %}
+{% block viz_link %}https://public.tableau.com/views/CallCenterKPIDashboardProject_17400958675130/CallCenterKPI{% endblock %}
+
+{% block viz %}
+    <tableau-viz
+        src="https://public.tableau.com/views/CallCenterKPIDashboardProject_17400958675130/CallCenterKPI"
+        toolbar="bottom"
+        height="760px">
+    </tableau-viz>
+{% endblock %}
+{% block viz_hint %}Hover any mark for exact values.{% endblock %}
+
+{% block body %}
+    <h2>Problem</h2>
+    <p>A call center manager needs to know at a glance how the team is performing: how many calls get answered, how many get resolved, how fast agents pick up, and how satisfied customers are. I built a Tableau KPI dashboard that answers those questions for one quarter of call data.</p>
+
+    <h2>Approach</h2>
+    <p>The data covers 5,000 calls from January to March 2021, handled by 8 agents across 5 topics (Admin Support, Contract related, Payment related, Streaming, Technical Support). Each row records whether the call was answered and resolved, the speed of answer in seconds, the talk duration, and a 1–5 satisfaction rating.</p>
+    <ol>
+        <li>Defined the core KPIs: answer rate, resolution rate, average speed of answer, average talk duration, and average satisfaction rating.</li>
+        <li>Built the KPI views in Tableau and combined them into one dashboard.</li>
+        <li>Published the dashboard to Tableau Public.</li>
+    </ol>
+
+    <h2>Data notes</h2>
+    <ul>
+        <li><strong>Unanswered calls have no metrics.</strong> 946 calls were never answered, so they have no speed of answer, talk duration or rating. Averages for those three KPIs are over the 4,054 answered calls, while the answer rate uses all 5,000.</li>
+        <li><strong>Resolution depends on the base.</strong> 87.9% of answered calls were resolved, but only 71.2% of all calls. The dashboard has to be clear about which one it shows.</li>
+    </ul>
+
+    <h2>Insights</h2>
+    <ul>
+        <li><strong>About 1 in 5 calls goes unanswered.</strong> 4,054 of 5,000 calls were answered (81.1%). Of those, 87.9% were resolved.</li>
+        <li><strong>Speed and satisfaction are middling.</strong> Agents took 67.5 seconds on average to answer, and calls averaged 3 minutes 45 seconds. The average rating was 3.4 out of 5: half of ratings were 4 or 5, but 20% were 1 or 2.</li>
+        <li><strong>Technical Support is the busiest topic.</strong> It had 1,239 calls (25% of volume) and the lowest answer rate of any topic, 79.7%.</li>
+        <li><strong>Agents perform very similarly.</strong> Every agent's answer rate falls between 79% and 83%, and average ratings between 3.33 and 3.47. Improving the overall numbers is more about staffing and process than about individual agents.</li>
+        <li><strong>January was the busiest month,</strong> with 1,772 calls, against about 1,600 in each of February and March.</li>
+    </ul>
+{% endblock %}

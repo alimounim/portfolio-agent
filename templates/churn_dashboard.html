@@ -1,0 +1,69 @@
+{% extends "case_study.html" %}
+{% block title %}Ali Rajabi — Customer Churn Dashboard{% endblock %}
+{% block heading %}Telecom Customer Churn Dashboard{% endblock %}
+{% block meta %}Tableau Dashboard · Telco Customer Churn dataset{% endblock %}
+{% block viz_link %}https://public.tableau.com/shared/C285TT3S7{% endblock %}
+
+{% block viz %}
+    <div class="tableauPlaceholder" id="vizChurn" style="position: relative">
+        <object class="tableauViz" style="display:none;">
+            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+            <param name="embed_code_version" value="3" />
+            <param name="path" value="shared&#47;C285TT3S7" />
+            <param name="toolbar" value="yes" />
+            <param name="static_image" value="https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;C2&#47;C285TT3S7&#47;1.png" />
+            <param name="animate_transition" value="yes" />
+            <param name="display_static_image" value="yes" />
+            <param name="display_spinner" value="yes" />
+            <param name="display_overlay" value="yes" />
+            <param name="display_count" value="no" />
+            <param name="language" value="en-US" />
+        </object>
+    </div>
+    <script type="text/javascript">
+        var divElement = document.getElementById("vizChurn");
+        var vizElement = divElement.getElementsByTagName("object")[0];
+        vizElement.style.width = "100%";
+        vizElement.style.height = (divElement.offsetWidth * (divElement.offsetWidth > 500 ? 0.75 : 1.77)) + "px";
+        var scriptElement = document.createElement("script");
+        scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+    </script>
+{% endblock %}
+{% block viz_hint %}Hover any bar or point for exact counts.{% endblock %}
+
+{% block body %}
+    <h2>Problem</h2>
+    <p>A telecom company is losing customers: 1,869 of its 7,043 customers (26.5%) churned. Which customers leave, and what could the company change to keep them? I built a one-page Tableau dashboard that breaks churn down by contract, tenure, charges and payment method, with findings and recommendations alongside the charts.</p>
+
+    <h2>Approach</h2>
+    <p>I used the Telco Customer Churn dataset: one row per customer, with contract type, tenure in months, monthly and total charges, payment method, and whether they churned (Yes/No). Each chart counts customers and colors them by churn status.</p>
+    <ol>
+        <li><strong>Contract Type Churn.</strong> Customers by contract type (month-to-month, one year, two year), split into churned and retained.</li>
+        <li><strong>Tenure Churn Count.</strong> Tenure grouped into 5-month bins, to show how churn changes the longer a customer stays.</li>
+        <li><strong>Total vs Monthly Charges.</strong> A scatter plot of total charges against monthly charges, colored by churn. Total charges grow with tenure, so this shows price and loyalty together.</li>
+        <li><strong>Payment Method Churn.</strong> Churned customers counted by payment method.</li>
+    </ol>
+    <p>I combined the four sheets into one dashboard with a text panel summarizing the findings and recommendations, and published it to Tableau Public.</p>
+
+    <h2>Data notes</h2>
+    <ul>
+        <li><strong>Churn is a Yes/No text field.</strong> Every chart counts customers and splits the count by churn status with color, so churned and retained customers can be compared side by side.</li>
+        <li><strong>Tenure needed grouping.</strong> Tenure runs from 0 to 72 months. Binning it into 5-month groups made the drop in churn over time readable instead of 73 thin bars.</li>
+        <li><strong>11 customers have no total charges.</strong> They all have a tenure of 0 months, so they haven't been billed yet and don't appear on the scatter plot.</li>
+    </ul>
+
+    <h2>Insights</h2>
+    <ul>
+        <li><strong>Contract type is the strongest signal.</strong> 42.7% of month-to-month customers churned, against 11.3% on one-year and 2.8% on two-year contracts. Month-to-month customers make up 89% of everyone who left.</li>
+        <li><strong>New customers are the most likely to leave.</strong> 54.9% of customers in their first 5 months churned, compared with 3.5% of those who stayed 70 months or more.</li>
+        <li><strong>High prices drive early churn.</strong> Churned customers paid $74.44 a month on average, against $61.27 for those who stayed. Long-time customers were much less likely to leave even as their prices rose.</li>
+        <li><strong>Electronic check stands out.</strong> 45.3% of customers paying by electronic check churned, compared with 15–19% for every other method. They account for 57% of all churned customers.</li>
+    </ul>
+
+    <h2>Recommendations</h2>
+    <ul>
+        <li>Bring on new customers at a lower price point and raise prices gradually over time, for a better long-term return.</li>
+        <li>Offer incentives to move month-to-month customers onto one-year or two-year contracts.</li>
+    </ul>
+{% endblock %}

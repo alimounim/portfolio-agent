@@ -1,110 +1,20 @@
-{% extends "base.html" %}
+{% extends "case_study.html" %}
 {% block title %}Ali Rajabi — Terrorism in Western Europe{% endblock %}
-{% block content %}
+{% block heading %}Terrorism in Western Europe, 1970–2020{% endblock %}
+{% block meta %}Tableau Story · Global Terrorism Database{% endblock %}
+{% block viz_link %}https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard{% endblock %}
 
-<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
-
-<style>
-    .case-study {
-        width: 100%;
-        max-width: 760px;
-    }
-    .back-link {
-        color: #9a8f7a;
-        font-size: 13px;
-        text-decoration: none;
-    }
-    .back-link:hover {
-        color: #d4af37;
-    }
-    .case-study h1 {
-        font-size: 24px;
-        font-weight: 600;
-        margin: 16px 0 8px;
-    }
-    .meta {
-        color: #6b6459;
-        font-size: 13px;
-        margin-bottom: 24px;
-    }
-    .meta a {
-        color: #d4af37;
-        text-decoration: none;
-    }
-    .viz-frame {
-        width: 100%;
-        max-width: 1000px;
-        background: #1a1a24;
-        border: 1px solid #2a2a38;
-        border-radius: 12px;
-        padding: 12px;
-        margin-bottom: 8px;
-        overflow-x: auto;
-    }
-    .viz-frame tableau-viz {
-        display: block;
-        width: 100%;
-    }
-    .viz-note {
-        width: 100%;
-        max-width: 1000px;
-        color: #6b6459;
-        font-size: 12px;
-        margin-bottom: 32px;
-    }
-    .viz-note a {
-        color: #9a8f7a;
-    }
-    .case-study h2 {
-        color: #d4af37;
-        font-size: 15px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin: 32px 0 12px;
-        padding-bottom: 6px;
-        border-bottom: 1px solid #2a2a38;
-    }
-    .case-study p, .case-study li {
-        color: #c9bfa8;
-        font-size: 15px;
-        line-height: 1.7;
-    }
-    .case-study li {
-        margin-bottom: 10px;
-    }
-    .case-study strong {
-        color: #e8dcc0;
-    }
-    .case-study code {
-        background: #1a1a24;
-        border: 1px solid #2a2a38;
-        border-radius: 4px;
-        padding: 1px 5px;
-        font-size: 13px;
-    }
-</style>
-
-<div class="case-study">
-    <a class="back-link" href="/projects">← Back to Projects</a>
-    <h1>Terrorism in Western Europe, 1970–2020</h1>
-    <div class="meta">
-        Tableau Story · Global Terrorism Database ·
-        <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard" target="_blank" rel="noopener">Open on Tableau Public ↗</a>
-    </div>
-</div>
-
-<div class="viz-frame">
+{% block viz %}
     <tableau-viz
         src="https://public.tableau.com/views/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard"
         toolbar="bottom"
         hide-tabs
         height="860px">
     </tableau-viz>
-</div>
-<p class="viz-note">Use the arrows or caption boxes at the top to move between the four pages. If the story doesn't load, <a href="https://public.tableau.com/app/profile/ali.mounim.rajabi7409/viz/TerroristIncidentsbyCountryWesternEurope1970-2020/TerrorisminWesternEuropeStoryboard" target="_blank" rel="noopener">view it on Tableau Public</a>.</p>
+{% endblock %}
+{% block viz_hint %}Use the arrows or caption boxes at the top to move between the four pages.{% endblock %}
 
-<div class="case-study">
+{% block body %}
     <h2>Problem</h2>
     <p>Where in Western Europe did terrorist attacks happen, who carried them out, how deadly were they, and how did all of that change over 50 years? A raw table of 17,328 incidents can't answer those questions at a glance. I built a four-page Tableau story where each page answers one of them.</p>
 
@@ -138,6 +48,4 @@
         <li><strong>Assassinations killed more people than bombings.</strong> They caused 2,676 deaths to bombings' 2,461, from about a third as many incidents (2,956).</li>
         <li><strong>The pattern shifted over time.</strong> By 2015 the total was far lower, and the UK (114) and Germany (68) led instead of Spain.</li>
     </ul>
-</div>
-
 {% endblock %}

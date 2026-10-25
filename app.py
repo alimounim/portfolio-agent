@@ -35,6 +35,14 @@ def projects():
 def terrorism_map():
 	return render_template("terrorism_map.html")
 
+@app.route("/projects/call-center-kpi")
+def call_center_kpi():
+	return render_template("call_center_kpi.html")
+
+@app.route("/projects/churn-dashboard")
+def churn_dashboard():
+	return render_template("churn_dashboard.html")
+
 @app.route("/certifications")
 def certifications():
 	return render_template("certifications.html")

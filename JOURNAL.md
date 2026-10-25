@@ -122,3 +122,10 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Pointed the case study page's embed at the story instead of the single map, so visitors can click through all four pages on my site
 - Rewrote the case study to cover every view: the new challenges (Top N filter order, gaps in the stacked areas, a scatter plot crushed into one corner) and the new insights
 - Updated the project card and the agent's bio to match
+
+## [10/24/2026] — Added Call Center KPI and Churn dashboards
+
+- Added two more Tableau projects to the Data Visualization section, each with its own case study page and the live dashboard embedded: a Call Center KPI dashboard and a Telecom Customer Churn dashboard
+- Moved the shared case study layout into one template (case_study.html) so all three case study pages look the same and new ones only need their own text
+- Pulled the numbers for each case study from the original data files, and the churn findings and recommendations from the dashboard's own text panel
+- Added both projects to the agent's bio
