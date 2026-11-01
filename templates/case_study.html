@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% set has_viz = self.viz_link() | trim %}{% if false %}{% block viz_link %}{% endblock %}{% endif %}
 
+{% if has_viz %}
 <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+{% endif %}
 
 <style>
     .case-study {
@@ -106,6 +109,40 @@
         line-height: 1.6;
         margin-top: 8px;
     }
+    .case-study pre {
+        background: #1a1a24;
+        border: 1px solid #2a2a38;
+        border-radius: 8px;
+        padding: 14px 16px;
+        overflow-x: auto;
+        margin: 12px 0 20px;
+    }
+    .case-study pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        color: #e8dcc0;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+    .case-study table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0 20px;
+        font-size: 14px;
+    }
+    .case-study th, .case-study td {
+        text-align: left;
+        vertical-align: top;
+        padding: 8px 10px;
+        border-bottom: 1px solid #2a2a38;
+        color: #c9bfa8;
+        line-height: 1.5;
+    }
+    .case-study th {
+        color: #d4af37;
+        font-weight: 600;
+    }
     .case-study code {
         background: #1a1a24;
         border: 1px solid #2a2a38;
@@ -119,15 +156,17 @@
     <a class="back-link" href="/projects">← Back to Projects</a>
     <h1>{% block heading %}{% endblock %}</h1>
     <div class="meta">
-        {% block meta %}{% endblock %} ·
-        <a href="{% block viz_link %}{% endblock %}" target="_blank" rel="noopener">Open on Tableau Public ↗</a>
+        {% block meta %}{% endblock %}{% if has_viz %} ·
+        <a href="{{ self.viz_link() }}" target="_blank" rel="noopener">Open on Tableau Public ↗</a>{% endif %}
     </div>
 </div>
 
+{% if has_viz %}
 <div class="viz-frame">
     {% block viz %}{% endblock %}
 </div>
 <p class="viz-note">{% block viz_hint %}{% endblock %} If it doesn't load, <a href="{{ self.viz_link() }}" target="_blank" rel="noopener">view it on Tableau Public</a>.</p>
+{% endif %}
 
 <div class="case-study">
     {% block body %}{% endblock %}

@@ -136,3 +136,12 @@ Notes on building this portfolio agent — what I did, why, and what I learned.
 - Tried to embed the live report, but my university account has Publish to web turned off, and the secure embed link asks visitors to sign in with a UTA account
 - Exported the report to PDF instead, turned each page into an image, and added them with captions; clicking an image opens it full size
 - Split the page into Part 1 (Tableau) and Part 2 (Power BI) so the eight visualizations read as one project
+
+## [11/1/2026] — GitHub collaboration network case study
+
+- Finished DataCamp's Introduction to Network Analysis in Python and added its capstone as a case study page at /projects/github-network, with a card in the Data Science section
+- The analysis covers a GitHub collaboration network of 56,519 users and 72,900 links: centrality distributions, matrix/arc/circos plots, maximal cliques, the most prolific collaborator (u741), and an open-triangle recommender
+- This is the first case study without a Tableau embed, so I made the Tableau parts of case_study.html optional: pages with no viz link skip the embed and the "Open on Tableau Public" link
+- Added code blocks and a results table to the shared case study styles, and the plots and certificate as images under static/images/github-network
+- The recommender returned only 2 pairs instead of 10, because the strict "greater than the 10th count" cutoff drops ties; I wrote that up as a finding instead of hiding it
+- Added the project to the agent's bio

@@ -43,6 +43,10 @@ def call_center_kpi():
 def churn_dashboard():
 	return render_template("churn_dashboard.html")
 
+@app.route("/projects/github-network")
+def github_network():
+	return render_template("github_network.html")
+
 @app.route("/certifications")
 def certifications():
 	return render_template("certifications.html")

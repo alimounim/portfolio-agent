@@ -1,0 +1,126 @@
+{% extends "case_study.html" %}
+{% block title %}Ali Rajabi — GitHub Collaboration Network Analysis{% endblock %}
+{% block heading %}GitHub Collaboration Network Analysis{% endblock %}
+{% block meta %}Python · NetworkX · nxviz · Matplotlib · DataCamp capstone case study{% endblock %}
+
+{% macro fig(file, alt, caption) %}
+    <figure>
+        <a href="{{ url_for('static', filename='images/github-network/' ~ file) }}" target="_blank" rel="noopener">
+            <img src="{{ url_for('static', filename='images/github-network/' ~ file) }}" alt="{{ alt }}" loading="lazy">
+        </a>
+        <figcaption>{{ caption | safe }}</figcaption>
+    </figure>
+{% endmacro %}
+
+{% block body %}
+    <p>Collaboration on GitHub is highly concentrated. Of 56,519 users, almost all have only a handful of collaborators, while a few hubs and bridges hold the network together. I measured and visualized the network, found its tightest community (a 14-person clique), identified its most prolific collaborator, and built a recommender that suggests which developers should work together next.</p>
+
+    <h2>Problem</h2>
+    <p>Who drives collaboration in an open-source community, where do tight-knit groups form, and which developers who haven't worked together yet probably should? A list of repositories and contributors can't answer that. Modeling the data as a network can.</p>
+
+    <h2>Data</h2>
+    <ul>
+        <li><strong>Nodes:</strong> 56,519 GitHub users.</li>
+        <li><strong>Edges:</strong> 72,900 links. Two users are linked if they contributed to the same repository.</li>
+        <li><strong>Node attribute:</strong> <code>'grouping'</code>, the user's group.</li>
+        <li>Betweenness, cliques and recommendations were computed on a subsample of about 60 users, because those algorithms are slow on the full graph.</li>
+    </ul>
+
+    <h2>Key findings</h2>
+    <table>
+        <tr><th>Finding</th><th>Result</th></tr>
+        <tr><td>Network size</td><td>56,519 users and 72,900 links, about 1.3 links per user</td></tr>
+        <tr><td>Collaboration is concentrated</td><td>About 55,000 users sit in the lowest degree-centrality bin; a thin tail reaches about 0.006</td></tr>
+        <tr><td>A few users act as bridges</td><td>59 of about 60 sampled users have betweenness near 0; four stand out at about 0.1, 0.2, 0.4 and 0.5</td></tr>
+        <tr><td>Communities</td><td>19 maximal cliques in the subsample</td></tr>
+        <tr><td>Tightest group</td><td>A 14-user clique where everyone has worked with everyone else (91 links)</td></tr>
+        <tr><td>Most prolific collaborator</td><td>User <strong>u741</strong>, the single highest degree centrality</td></tr>
+        <tr><td>Recommended introductions</td><td>u2022 with u4159, and u2022 with u655</td></tr>
+    </table>
+
+    <h2>1. Profiling the network</h2>
+    {{ fig('network-size.png', 'IPython shell showing 56519 nodes and 72900 edges', '<strong>Network size.</strong> 56,519 users and 72,900 collaboration links.') }}
+
+    <pre><code>plt.hist(list(nx.degree_centrality(G).values()))
+plt.hist(list(nx.betweenness_centrality(G).values()))</code></pre>
+
+    {{ fig('degree-histogram.png', 'Histogram of degree centrality', '<strong>Degree centrality.</strong> About 55,000 users fall in the first bin, roughly 33 collaborators or fewer. The tail stretches to about 0.006, on the order of 300 collaborators.') }}
+
+    {{ fig('betweenness-histogram.png', 'Histogram of betweenness centrality', '<strong>Betweenness centrality (subsample).</strong> 59 users carry almost no shortest paths. Four users, at about 0.1, 0.2, 0.4 and 0.5, are the bridges that connect the rest.') }}
+
+    <p>Both distributions are heavily right-skewed: importance sits with a few hubs and bridges, which is where the rest of the analysis focuses.</p>
+
+    <h2>2. Visualizing the structure</h2>
+    <p>A plot of 56,000 nodes is unreadable, so I drew the largest connected component and ordered nodes by a meaningful attribute.</p>
+
+    <pre><code>largest_ccs = sorted(nx.connected_components(G), key=lambda x: len(x))[-1]
+h = matrix(G.subgraph(largest_ccs), group_by='grouping')
+
+for n, d in G.nodes(data=True):
+    G.nodes[n]['degree'] = nx.degree(G, n)
+a = arc(G, sort_by='degree')
+c = circos(G, sort_by='degree', group_by='grouping', node_color_by='grouping')</code></pre>
+
+    {{ fig('matrix-plot.png', 'Matrix plot of the largest connected component', '<strong>Matrix plot.</strong> Sparse and scattered rather than block-shaped. Repeated row patterns show users who share the same collaborators, and one nearly full row is a single hub.') }}
+
+    {{ fig('arc-plot.png', 'Arc plot sorted by degree', '<strong>Arc plot, sorted by degree.</strong> Arcs pile up at the high-degree end on the right: most links run to a handful of users.') }}
+
+    {{ fig('circos-plot.png', 'Circos plot colored by grouping', '<strong>Circos plot, colored by grouping.</strong> All but one user share the same group, so the attribute barely separates users. Communities have to come from the links themselves.') }}
+
+    <h2>3. Finding communities with cliques</h2>
+    <p>A maximal clique is a group of users who have all worked with each other and can't be extended by another user. It is a natural seed for a community.</p>
+
+    {{ fig('clique-count.png', 'Code output: 19 maximal cliques', '<strong>19 maximal cliques</strong> in the subsample.') }}
+
+    <pre><code>largest_clique = sorted(nx.find_cliques(G), key=lambda x: len(x))[-1]
+G_lc = G.subgraph(largest_clique)
+c = circos(G_lc)</code></pre>
+
+    {{ fig('largest-clique-circos.png', 'Circos plot of the 14-user clique', '<strong>Largest clique: 14 users.</strong> Every member has collaborated with all 13 others, 91 links in total.') }}
+
+    <p>I then expanded the clique by one hop, adding every collaborator of its members, and sorted the result by degree centrality.</p>
+
+    {{ fig('clique-neighbors-arc.png', 'Arc plot of the clique and its neighbors', '<strong>Clique plus neighbors.</strong> About two dozen users join (roughly 37 in total, counted from the plot). Each new user connects by one long arc to the same one or two clique members, so the clique reaches the wider network through very few people.') }}
+
+    <h2>4. Finding important collaborators</h2>
+    <pre><code>deg_cent = nx.degree_centrality(G)
+max_dc = max(deg_cent.values())
+prolific_collaborators = [n for n, dc in deg_cent.items() if dc == max_dc]</code></pre>
+
+    {{ fig('prolific-collaborator.png', 'Code output: u741', '<strong>Most prolific collaborator: u741,</strong> the single user with the highest degree centrality.') }}
+
+    <h2>5. Recommending new collaborations</h2>
+    <p>The recommender uses <strong>open triangles</strong>. If A has worked with both B and C, but B and C haven't worked together, they share a collaborator and are good candidates. The more collaborators a pair shares, the stronger the recommendation.</p>
+
+    <pre><code>recommended = defaultdict(int)
+for n, d in G.nodes(data=True):
+    for n1, n2 in combinations(list(G.neighbors(n)), 2):
+        if not G.has_edge(n1, n2):
+            recommended[(n1, n2)] += 1
+
+all_counts = sorted(recommended.values())
+top10_pairs = [pair for pair, count in recommended.items() if count > all_counts[-10]]</code></pre>
+
+    {{ fig('recommendations.png', 'Code output: recommended pairs', '<strong>Recommended pairs:</strong> (u2022, u4159) and (u655, u2022). u2022 appears in both.') }}
+
+    <p>Only two pairs came back instead of ten. Many pairs tie with the 10th-highest count, and the strict <code>&gt;</code> comparison drops all of them. The two pairs returned are the ones strictly above the cutoff, the strongest recommendations.</p>
+
+    <h2>Recommendations</h2>
+    <ol>
+        <li><strong>Engage the hubs and bridges first.</strong> Reaching u741 and the four high-betweenness users spreads information fastest and keeps separate groups linked.</li>
+        <li><strong>Protect the clique's outside links.</strong> The 14-person group reaches the rest of the network through one or two members. If they leave, the group becomes isolated.</li>
+        <li><strong>Make the introductions.</strong> Pair u2022 with u4159 and with u655. Each pair already shares collaborators.</li>
+        <li><strong>Don't rely on the grouping label.</strong> It barely varies in this sample, so communities should be found from the links.</li>
+    </ol>
+
+    <h2>Challenges and what I'd improve</h2>
+    <ul>
+        <li><strong>API changes.</strong> <code>connected_components</code> returns sets of nodes, not graphs, so it needs <code>G.subgraph(...)</code>. <code>G.node</code> was removed in NetworkX 2.4, so I used <code>G.nodes[n]</code>. <code>find_cliques</code> returns a generator, so I counted it with <code>len(list(...))</code>.</li>
+        <li><strong>Editable subgraphs.</strong> <code>G.subgraph()</code> returns a read-only view. Expanding the clique needed <code>.copy()</code>.</li>
+        <li><strong>Duplicate pairs.</strong> The recommender can count the same two users as both (A, B) and (B, A). I'd store <code>tuple(sorted((n1, n2)))</code>, and use <code>Counter.most_common(10)</code> to always return exactly ten.</li>
+        <li><strong>Subsample.</strong> Betweenness, cliques and recommendations ran on about 60 users. Next, I'd rebuild the project on a public GitHub dataset, add Louvain community detection, and score the recommender by hiding 10% of links and measuring how many it recovers.</li>
+    </ul>
+
+    <h2>Certificate</h2>
+    {{ fig('datacamp-certificate.png', 'DataCamp Statement of Accomplishment for Introduction to Network Analysis in Python', 'Completed as the capstone case study of DataCamp\'s <em>Introduction to Network Analysis in Python</em> (4 hours, Nov 1, 2026).') }}
+{% endblock %}
