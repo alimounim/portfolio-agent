@@ -74,6 +74,69 @@
         opacity: 1;
         margin-top: 10px;
     }
+    /* Featured card: always open, so it works on touch screens too */
+    .project-card.featured {
+        cursor: default;
+        border-color: #3a3424;
+    }
+    .project-card.featured p {
+        max-height: none;
+        opacity: 1;
+        margin-top: 10px;
+    }
+    .project-card.featured h3 a {
+        color: #d4af37;
+        text-decoration: none;
+    }
+    .project-card.featured h3 a:hover .repo-tag {
+        color: #d4af37;
+    }
+    .badge-row {
+        margin-top: 8px;
+    }
+    .badge {
+        display: inline-block;
+        font-size: 11px;
+        color: #d4af37;
+        border: 1px solid #5a4d22;
+        border-radius: 999px;
+        padding: 2px 9px;
+        margin: 0 4px 4px 0;
+    }
+    .feature-body h4 {
+        color: #e6dcc3;
+        font-size: 13px;
+        margin: 14px 0 4px;
+    }
+    .feature-body ul {
+        color: #c9bfa8;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+        padding-left: 18px;
+    }
+    .feature-links {
+        margin-top: 14px;
+    }
+    .feature-links a {
+        display: inline-block;
+        color: #d4af37;
+        font-size: 13px;
+        text-decoration: none;
+        border: 1px solid #5a4d22;
+        border-radius: 8px;
+        padding: 5px 11px;
+        margin: 0 6px 6px 0;
+        transition: background 0.2s ease;
+    }
+    .feature-links a:hover {
+        background: #2a2416;
+    }
+    .feature-links a.primary {
+        background: #d4af37;
+        color: #14141c;
+        font-weight: 600;
+    }
     .empty-note {
         width: 100%;
         max-width: 560px;
@@ -85,6 +148,53 @@
 </style>
 
 <h1 class="page-title">Projects</h1>
+
+<div class="section-title">Hackathons</div>
+
+<div class="project-card featured">
+    <h3><a href="https://signtovoice.us" target="_blank" rel="noopener">Hermes: Sign Language to Voice<span class="repo-tag">signtovoice.us ↗</span></a></h3>
+    <div class="badge-row">
+        <span class="badge">HackUTA 2026</span>
+        <span class="badge">MLH Best Use of Gemini API: shortlisted (top 10)</span>
+        <span class="badge">Solo build · 24 hours</span>
+        <span class="badge">Live</span>
+    </div>
+    <p>A FaceTime call that translates American Sign Language into a spoken voice, and speech back into captions, so Deaf signers can be understood at a pharmacy, clinic or front desk with no interpreter and no app. You FaceTime Hermes and sign; it says your sentence out loud in natural English and shows the other person's reply as large captions on its video.</p>
+    <div class="feature-body">
+        <h4>HackUTA 2026</h4>
+        <ul>
+            <li>Built solo in 24 hours at HackUTA's 8th hackathon (Nov 14–15, 2026, UT Arlington), theme: Homer's <em>Odyssey</em>. Hermes is the messenger who carries words between gods and mortals.</li>
+            <li>402 participants and about 137 submitted projects.</li>
+            <li>Shortlisted by MLH as one of 10 finalists for <strong>Best Use of Gemini API</strong>. Also entered the Chert FaceTime, ElevenLabs, GoDaddy Registry domain and SpaceXSI challenges.</li>
+        </ul>
+        <h4>How I built it</h4>
+        <ul>
+            <li><strong>Call:</strong> the Chert FaceTime API puts the call into a LiveKit room, where my Python agent (LiveKit Agents) joins and streams back a 1920×1080 caption board at 15 fps.</li>
+            <li><strong>Vision:</strong> MediaPipe tracks both hands, nose and shoulders. The agent finds where each whole sign starts and ends, then a scikit-learn classifier (PCA + four voting MLPs) labels it from 3,060 body-relative features: hand shape, hand position and movement. It says "not sure" rather than guess.</li>
+            <li><strong>Data:</strong> trained on Google's ASL dataset from Kaggle (about 21,000 clips, 21 signers) for a 49-sign vocabulary. On signers the model never saw, it scores 84% top-1 and 95% top-3.</li>
+            <li><strong>Language and voice:</strong> Google Gemini (through Google AI Studio) turns ASL gloss like <code>THIRSTY WATER PLEASE</code> into "I'm thirsty, can I have some water, please?", ElevenLabs speaks it into the call, and ElevenLabs Scribe captions the reply.</li>
+            <li><strong>Web:</strong> a static site and sign dictionary on GitHub Pages at my own domain, signtovoice.us.</li>
+            <li><strong>Tools:</strong> Python, Chert FaceTime API, LiveKit, MediaPipe, OpenCV, scikit-learn, NumPy, pandas, Gemini, Google AI Studio, ElevenLabs, Pillow, Kaggle, GitHub Pages, Cursor, Claude, Grok.</li>
+        </ul>
+        <h4>Workshops I attended</h4>
+        <ul>
+            <li><strong>Intro to Google AI Studio (MLH):</strong> prototyping prompts and getting a Gemini API key, which I used to build and tune Hermes' gloss-to-English translation.</li>
+            <li><strong>Your Hackathon A-Team with SpaceXSI (MLH):</strong> how to scope, divide and pitch hackathon work, which helped me plan Hermes as a solo builder.</li>
+            <li><strong>Image Processing, by Dr. Marnim Galib (UTA Computer Science and Engineering):</strong> how images are represented and processed in code, background for Hermes' video pipeline.</li>
+            <li><strong>Adobe workshop:</strong> using Adobe's creative tools for project visuals and presentations.</li>
+        </ul>
+        <h4>What's next</h4>
+        <ul>
+            <li>I'm continuing to build Hermes. Next: letting a signer reach a doctor's office, pharmacy or friend who joins from a browser link, a bigger vocabulary with fingerspelling for names and medications, continuous signing, and testing with Deaf signers.</li>
+        </ul>
+    </div>
+    <div class="feature-links">
+        <a class="primary" href="https://signtovoice.us" target="_blank" rel="noopener">Try it: signtovoice.us ↗</a>
+        <a href="https://devpost.com/software/hermes-03zgn7" target="_blank" rel="noopener">Devpost ↗</a>
+        <a href="https://www.youtube.com/watch?v=JPk8ASrmPnM" target="_blank" rel="noopener">Demo video ↗</a>
+        <a href="https://github.com/alimounim/Hermes" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+</div>
 
 <div class="section-title">Data Science</div>
 
