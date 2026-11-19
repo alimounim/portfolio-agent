@@ -74,7 +74,7 @@
         opacity: 1;
         margin-top: 10px;
     }
-    /* Featured card: always open, so it works on touch screens too */
+    /* Featured card: title and badges show; details open on hover like the other cards */
     .project-card.featured {
         cursor: default;
         border-color: #3a3424;
@@ -83,6 +83,17 @@
         max-height: none;
         opacity: 1;
         margin-top: 10px;
+    }
+    .feature-details {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease, opacity 0.3s ease;
+    }
+    .project-card.featured:hover .feature-details,
+    .project-card.featured:focus-within .feature-details {
+        max-height: 2000px;
+        opacity: 1;
     }
     .project-card.featured h3 a {
         color: #d4af37;
@@ -159,6 +170,7 @@
         <span class="badge">Solo build · 24 hours</span>
         <span class="badge">Live</span>
     </div>
+    <div class="feature-details">
     <p>A FaceTime call that translates American Sign Language into a spoken voice, and speech back into captions, so Deaf signers can be understood at a pharmacy, clinic or front desk with no interpreter and no app. You FaceTime Hermes and sign; it says your sentence out loud in natural English and shows the other person's reply as large captions on its video.</p>
     <div class="feature-body">
         <h4>HackUTA 2026</h4>
@@ -193,6 +205,7 @@
         <a href="https://devpost.com/software/hermes-03zgn7" target="_blank" rel="noopener">Devpost ↗</a>
         <a href="https://www.youtube.com/watch?v=JPk8ASrmPnM" target="_blank" rel="noopener">Demo video ↗</a>
         <a href="https://github.com/alimounim/Hermes" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
     </div>
 </div>
 
